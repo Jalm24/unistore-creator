@@ -10,20 +10,20 @@ Begin VB.Form Form3
    ScaleWidth      =   9180
    StartUpPosition =   3  'Windows Default
    Begin VB.CommandButton Command3 
-      Caption         =   "Guardar y Agregar otro archivo de la misma app o juego (ejmplo: juego.nds)"
-      Height          =   975
-      Left            =   6000
+      Caption         =   "save and add another file of this package (example: .3dsx .nds .zip .7z)"
+      Height          =   855
+      Left            =   6120
       TabIndex        =   10
-      Top             =   4080
-      Width           =   2415
+      Top             =   3960
+      Width           =   2055
    End
    Begin VB.CommandButton Command2 
-      Caption         =   "Guardar y agregar Actualización"
-      Height          =   975
-      Left            =   6240
+      Caption         =   "save and add an update"
+      Height          =   615
+      Left            =   6480
       TabIndex        =   9
-      Top             =   2760
-      Width           =   1935
+      Top             =   2880
+      Width           =   1335
    End
    Begin VB.TextBox Text4 
       Height          =   615
@@ -54,15 +54,15 @@ Begin VB.Form Form3
       Width           =   2175
    End
    Begin VB.CommandButton Command1 
-      Caption         =   "Guardar y agregar otro Juego o App"
-      Height          =   975
-      Left            =   6240
+      Caption         =   "save and add another app"
+      Height          =   615
+      Left            =   6480
       TabIndex        =   0
-      Top             =   1440
-      Width           =   1935
+      Top             =   1680
+      Width           =   1335
    End
    Begin VB.Label Label11 
-      Caption         =   "Creador del programa: Extintor Incendiandose"
+      Caption         =   "Credits: Extintor Incendiandose"
       Height          =   375
       Left            =   7440
       TabIndex        =   12
@@ -71,7 +71,7 @@ Begin VB.Form Form3
    End
    Begin VB.Label Label5 
       Alignment       =   2  'Center
-      Caption         =   "Configurar Descarga e instalación de Archivo.CIA"
+      Caption         =   "CiaFile: Script Config"
       BeginProperty Font 
          Name            =   "Arial"
          Size            =   18
@@ -81,43 +81,43 @@ Begin VB.Form Form3
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   855
-      Left            =   1920
+      Height          =   495
+      Left            =   2400
       TabIndex        =   11
-      Top             =   240
-      Width           =   4815
+      Top             =   360
+      Width           =   3975
    End
    Begin VB.Label Label4 
-      Caption         =   "Nombre del archivo.cia tal y como aparece en el enlace, sin espacios ni parentesis"
+      Caption         =   "Name of the .cia file as it appears in the download link, without spaces or parentheses"
       Height          =   735
       Left            =   240
       TabIndex        =   7
       Top             =   4440
-      Width           =   2055
+      Width           =   2415
    End
    Begin VB.Label Label3 
-      Caption         =   "Mensaje a mostrar en Universal Updater"
-      Height          =   615
-      Left            =   240
+      Caption         =   "Message"
+      Height          =   255
+      Left            =   1800
       TabIndex        =   5
-      Top             =   3360
-      Width           =   1935
+      Top             =   3480
+      Width           =   855
    End
    Begin VB.Label Label2 
-      Caption         =   "Enlace directo permanente (que nunca cambie o expire)"
+      Caption         =   "Permanent direct download link (that never changes or expires)"
       Height          =   615
-      Left            =   240
+      Left            =   600
       TabIndex        =   3
       Top             =   2400
       Width           =   2175
    End
    Begin VB.Label Label1 
-      Caption         =   "Nombre del cia a descargar (ejemplo: FBI.cia) pdt: se permiten espacios"
+      Caption         =   "file name, you can use spaces or parentheses"
       Height          =   615
-      Left            =   240
+      Left            =   720
       TabIndex        =   1
       Top             =   1440
-      Width           =   2175
+      Width           =   1695
    End
 End
 Attribute VB_Name = "Form3"
@@ -131,6 +131,21 @@ Dim zelda As String
 Dim msgUU As String
 Dim ciaNom As String
 Dim listo As Boolean
+' Declarar las variables para almacenar el ancho y el alto de la pantalla
+Dim anchoPantalla As Long
+Dim altoPantalla As Long
+
+' Crear un procedimiento para el evento Load del formulario secundario
+Private Sub Form_Load()
+    ' Obtener el ancho y el alto de la pantalla en twips
+    anchoPantalla = Screen.Width
+    altoPantalla = Screen.Height
+    
+    ' Centrar el formulario usando las propiedades Left y Top
+    Me.Left = (anchoPantalla - Me.Width) / 2
+    Me.Top = (altoPantalla - Me.Height) / 2
+End Sub
+
 
 Private Sub Command1_Click()
 nomScrp = Text1.Text
@@ -140,7 +155,7 @@ ciaNom = Text4.Text
 
 ' Crear la cadena que se va a anexar al archivo
 Dim texto As String
-texto = texto & Chr$(34) & nomScrp & Chr$(34) & ":[{"
+texto = texto & Chr$(34) & "Download " & nomScrp & Chr$(34) & ":[{"
 texto = texto & Chr$(34) & "file" & Chr$(34) & ":" & Chr$(34) & zelda & Chr$(34) & ","
 texto = texto & Chr$(34) & "message" & Chr$(34) & ":" & Chr$(34) & msgUU & Chr$(34) & ","
 texto = texto & Chr$(34) & "output" & Chr$(34) & ":" & Chr$(34) & "sdmc:/" & ciaNom & Chr$(34) & ","
@@ -152,23 +167,30 @@ texto = texto & "{" & Chr$(34) & "type" & Chr$(34) & ":" & Chr$(34) & "deleteFil
 texto = texto & Chr$(34) & "file" & Chr$(34) & ":" & Chr$(34) & "sdmc:/" & ciaNom & Chr$(34) & "}]},"
 
 
-' Crear un objeto FileSystemObject
-Dim fso As Object
-Set fso = CreateObject("Scripting.FileSystemObject")
+' Crear un objeto ADODB.Stream
+Dim fsT As Object
+Set fsT = CreateObject("ADODB.Stream")
 
-' Abrir el archivo prueba.txt en modo de anexar
-Dim ts As Object
-Set ts = fso.OpenTextFile(fileName & ".unistore", 8, True)
+' Especificar el tipo y el conjunto de caracteres
+fsT.Type = 2 'Texto
+fsT.Charset = "ascii" 'UTF-8
 
-' Escribir la cadena en el archivo
-ts.Write texto
+' Abrir el stream en modo de anexar
+fsT.Open
+fsT.LoadFromFile fileName & ".unistore"
+fsT.Position = fsT.Size
 
-' Cerrar el archivo
-ts.Close
+' Escribir la cadena en el stream
+fsT.WriteText texto
+
+' Guardar el stream en el archivo
+fsT.SaveToFile fileName & ".unistore", 2
+
+' Cerrar el stream
+fsT.Close
 
 ' Liberar los objetos
-Set ts = Nothing
-Set fso = Nothing
+Set fsT = Nothing
 listo = True
 
 Dim frm As New Form2
@@ -180,9 +202,9 @@ Me.Hide
 End Sub
 
 Private Sub Command2_Click()
-MsgBox "No disponible"
+MsgBox "Not available"
 End Sub
 
 Private Sub Command3_Click()
-MsgBox "No disponible"
+MsgBox "Not available"
 End Sub

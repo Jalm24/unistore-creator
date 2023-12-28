@@ -10,7 +10,7 @@ Begin VB.Form Form2
    ScaleWidth      =   9360
    StartUpPosition =   3  'Windows Default
    Begin VB.CommandButton Command2 
-      Caption         =   "Finalizar"
+      Caption         =   "Finish"
       BeginProperty Font 
          Name            =   "MS Sans Serif"
          Size            =   12
@@ -27,7 +27,7 @@ Begin VB.Form Form2
       Width           =   1935
    End
    Begin VB.OptionButton Option4 
-      Caption         =   "Archivo .FIRM"
+      Caption         =   " .FIRM"
       Height          =   735
       Left            =   7080
       TabIndex        =   24
@@ -35,7 +35,7 @@ Begin VB.Form Form2
       Width           =   1455
    End
    Begin VB.OptionButton Option3 
-      Caption         =   "Archivo .3dsx"
+      Caption         =   ".3dsx"
       Height          =   735
       Left            =   5400
       TabIndex        =   23
@@ -43,7 +43,7 @@ Begin VB.Form Form2
       Width           =   1455
    End
    Begin VB.OptionButton Option2 
-      Caption         =   "Archivo CIA"
+      Caption         =   "CIA"
       Height          =   735
       Left            =   2280
       TabIndex        =   22
@@ -52,7 +52,7 @@ Begin VB.Form Form2
       Width           =   1335
    End
    Begin VB.OptionButton Option1 
-      Caption         =   "Archivo NDS"
+      Caption         =   " NDS"
       Height          =   735
       Left            =   720
       TabIndex        =   21
@@ -133,7 +133,7 @@ Begin VB.Form Form2
       Width           =   1695
    End
    Begin VB.CommandButton Command1 
-      Caption         =   "Agregar Enlace"
+      Caption         =   "add download link"
       BeginProperty Font 
          Name            =   "MS Sans Serif"
          Size            =   12
@@ -147,10 +147,10 @@ Begin VB.Form Form2
       Left            =   2280
       TabIndex        =   0
       Top             =   6720
-      Width           =   1935
+      Width           =   2295
    End
    Begin VB.Label Label12 
-      Caption         =   "Creador del programa: Extintor Incendiandose"
+      Caption         =   "credits: Extintor Incendiandose"
       Height          =   375
       Left            =   7440
       TabIndex        =   27
@@ -159,7 +159,7 @@ Begin VB.Form Form2
    End
    Begin VB.Label Label11 
       Alignment       =   2  'Center
-      Caption         =   "Detalles de la aplicación o videojuego"
+      Caption         =   "Application details"
       BeginProperty Font 
          Name            =   "Arial"
          Size            =   14.25
@@ -176,84 +176,84 @@ Begin VB.Form Form2
       Width           =   5895
    End
    Begin VB.Label Label10 
-      Caption         =   "licencia de la app o videojuego"
-      Height          =   495
-      Left            =   5280
+      Caption         =   "licence"
+      Height          =   255
+      Left            =   6000
       TabIndex        =   20
-      Top             =   4680
-      Width           =   1335
+      Top             =   4800
+      Width           =   735
    End
    Begin VB.Label Label9 
-      Caption         =   "ultima vez que se actualizo MM-DD-YY"
+      Caption         =   "last update  MM-DD-YY"
       Height          =   495
-      Left            =   5160
+      Left            =   5880
       TabIndex        =   19
       Top             =   3840
-      Width           =   1575
+      Width           =   855
    End
    Begin VB.Label Label8 
-      Caption         =   "descripción de la app o videojuego"
-      Height          =   495
-      Left            =   5160
+      Caption         =   "description"
+      Height          =   375
+      Left            =   5760
       TabIndex        =   18
-      Top             =   3000
-      Width           =   1455
+      Top             =   3120
+      Width           =   1095
    End
    Begin VB.Label Label7 
-      Caption         =   "sheet index (leer documentación)"
+      Caption         =   "sheet index (pls read documentation)"
       Height          =   495
       Left            =   5280
       TabIndex        =   17
       Top             =   2160
-      Width           =   1335
+      Width           =   1575
    End
    Begin VB.Label Label6 
-      Caption         =   "icon index (leer documentación)"
+      Caption         =   "icon index (pls read documentation)"
       Height          =   495
       Left            =   5280
       TabIndex        =   16
       Top             =   1320
-      Width           =   1335
+      Width           =   1575
    End
    Begin VB.Label Label5 
-      Caption         =   "consola"
+      Caption         =   "console"
       Height          =   495
-      Left            =   360
+      Left            =   960
       TabIndex        =   15
       Top             =   4680
-      Width           =   1335
+      Width           =   855
    End
    Begin VB.Label Label4 
-      Caption         =   "categoria"
-      Height          =   495
-      Left            =   360
+      Caption         =   "category"
+      Height          =   375
+      Left            =   960
       TabIndex        =   14
-      Top             =   3840
-      Width           =   1335
+      Top             =   3960
+      Width           =   855
    End
    Begin VB.Label Label3 
-      Caption         =   "autor de la app o videojuego"
-      Height          =   495
-      Left            =   360
+      Caption         =   "author"
+      Height          =   375
+      Left            =   1200
       TabIndex        =   13
       Top             =   3000
-      Width           =   1335
+      Width           =   735
    End
    Begin VB.Label Label2 
-      Caption         =   "version de la app o videojuego"
-      Height          =   495
-      Left            =   360
+      Caption         =   "version"
+      Height          =   375
+      Left            =   1080
       TabIndex        =   12
       Top             =   2160
-      Width           =   1335
+      Width           =   735
    End
    Begin VB.Label Label1 
-      Caption         =   "Nombre de la app o videojuego"
-      Height          =   495
-      Left            =   360
+      Caption         =   "App name"
+      Height          =   375
+      Left            =   720
       TabIndex        =   11
-      Top             =   1320
-      Width           =   1335
+      Top             =   1440
+      Width           =   1215
    End
 End
 Attribute VB_Name = "Form2"
@@ -274,6 +274,21 @@ Dim description As String
 Dim updated As String
 Dim license As String
 Dim addCia As Boolean
+' Declarar las variables para almacenar el ancho y el alto de la pantalla
+Dim anchoPantalla As Long
+Dim altoPantalla As Long
+
+' Crear un procedimiento para el evento Load del formulario secundario
+Private Sub Form_Load()
+    ' Obtener el ancho y el alto de la pantalla en twips
+    anchoPantalla = Screen.Width
+    altoPantalla = Screen.Height
+    
+    ' Centrar el formulario usando las propiedades Left y Top
+    Me.Left = (anchoPantalla - Me.Width) / 2
+    Me.Top = (altoPantalla - Me.Height) / 2
+End Sub
+
 
 Private Sub Command1_Click()
 title = Text1.Text
@@ -289,40 +304,47 @@ license = Text10.Text
 
 ' Crear la cadena que se va a anexar al archivo
 Dim texto As String
-texto = texto & "{" & Chr$(34) & "info" & Chr$(34) & ":{"
-texto = texto & Chr$(34) & "title" & Chr$(34) & ":" & Chr$(34) & title & Chr$(34) & ","
-texto = texto & Chr$(34) & "version" & Chr$(34) & ":" & Chr$(34) & ver & Chr$(34) & ","
-texto = texto & Chr$(34) & "author" & Chr$(34) & ":" & Chr$(34) & author & Chr$(34) & ","
-texto = texto & Chr$(34) & "category" & Chr$(34) & ":" & Chr$(34) & category & Chr$(34) & ","
-texto = texto & Chr$(34) & "console" & Chr$(34) & ":[" & Chr$(34) & console & Chr$(34) & "],"
-texto = texto & Chr$(34) & "icon_index" & Chr$(34) & ":" & iconIndex & ","
-texto = texto & Chr$(34) & "sheet_index" & Chr$(34) & ":" & sheetIndex & ","
-texto = texto & Chr$(34) & "description" & Chr$(34) & ":" & Chr$(34) & description & Chr$(34) & ","
-texto = texto & Chr$(34) & "last_updated" & Chr$(34) & ":" & Chr$(34) & updated & Chr$(34) & ","
-texto = texto & Chr$(34) & "license" & Chr$(34) & ":" & Chr$(34) & license & Chr$(34) & "},"
+texto = texto & "{" & Chr$(34) & "info" & Chr$(34) & ": {"
+texto = texto & Chr$(34) & "title" & Chr$(34) & ": " & Chr$(34) & title & Chr$(34) & ","
+texto = texto & Chr$(34) & "version" & Chr$(34) & ": " & Chr$(34) & ver & Chr$(34) & ","
+texto = texto & Chr$(34) & "author" & Chr$(34) & ": " & Chr$(34) & author & Chr$(34) & ","
+texto = texto & Chr$(34) & "category" & Chr$(34) & ": " & Chr$(34) & category & Chr$(34) & ","
+texto = texto & Chr$(34) & "console" & Chr$(34) & ": [" & Chr$(34) & console & Chr$(34) & "  ],"
+texto = texto & Chr$(34) & "icon_index" & Chr$(34) & ": " & iconIndex & ","
+texto = texto & Chr$(34) & "sheet_index" & Chr$(34) & ": " & sheetIndex & ","
+texto = texto & Chr$(34) & "description" & Chr$(34) & ": " & Chr$(34) & description & Chr$(34) & ","
+texto = texto & Chr$(34) & "last_updated" & Chr$(34) & ": " & Chr$(34) & updated & Chr$(34) & ","
+texto = texto & Chr$(34) & "license" & Chr$(34) & ": " & Chr$(34) & license & Chr$(34) & "  },"
 
-' Crear un objeto FileSystemObject
-Dim fso As Object
-Set fso = CreateObject("Scripting.FileSystemObject")
+' Crear un objeto ADODB.Stream
+Dim fsT As Object
+Set fsT = CreateObject("ADODB.Stream")
 
-' Abrir el archivo prueba.txt en modo de anexar
-Dim ts As Object
-Set ts = fso.OpenTextFile(fileName & ".unistore", 8, True)
+' Especificar el tipo y el conjunto de caracteres
+fsT.Type = 2 'Texto
+fsT.Charset = "ascii" 'UTF-8
 
-' Escribir la cadena en el archivo
-ts.Write texto
+' Abrir el stream en modo de anexar
+fsT.Open
+fsT.LoadFromFile fileName & ".unistore"
+fsT.Position = fsT.Size
 
-' Cerrar el archivo
-ts.Close
+' Escribir la cadena en el stream
+fsT.WriteText texto
+
+' Guardar el stream en el archivo
+fsT.SaveToFile fileName & ".unistore", 2
+
+' Cerrar el stream
+fsT.Close
 
 ' Liberar los objetos
-Set ts = Nothing
-Set fso = Nothing
+Set fsT = Nothing
 
 If (Option2.Value = True) Then
 ' Crear una instancia de Form2
 Dim result As VbMsgBoxResult
-result = MsgBox("Cambios guardados" & Chr(13) & "toca agregar un cia", vbOKOnly + vbInformation, "Confirmación")
+result = MsgBox("Changes saved" & Chr(13) & "It's time to add a .cia", vbOKOnly + vbInformation, "Confirm")
 If result = vbOK Then
 Dim frm As New Form3
 ' Mostrar Form2
@@ -337,24 +359,31 @@ End Sub
 
 Private Sub Command2_Click()
 If (listo = False) Then
-MsgBox "No haz agregado ningun enlace!" & Chr(13) & "sin enlaces no se puede finalizar", vbOKOnly + vbCritical, "PELIGRO"
+MsgBox "You haven't added any links!!" & Chr(13) & "without links you can't finish", vbOKOnly + vbCritical, "DANGER"
 Else
 
-    Dim fso As Object
-    Dim ts As Object
+    Dim fsT As Object
     Dim txt As String
     
-    'Crear un objeto FileSystemObject
-    Set fso = CreateObject("Scripting.FileSystemObject")
+    'Crear un objeto ADODB.Stream
+    Set fsT = CreateObject("ADODB.Stream")
     
-    'Abrir el archivo de texto en modo lectura
-    Set ts = fso.OpenTextFile(fileName & ".unistore", 1)
+    'Especificar el tipo y el conjunto de caracteres
+    fsT.Type = 2 'Texto
+    fsT.Charset = "ascii" 'UTF-8
     
-    'Leer el contenido del archivo y guardarlo en una variable
-    txt = ts.ReadAll
+    'Especificar el separador de líneas
+    fsT.LineSeparator = -1 'CR LF
     
-    'Cerrar el archivo de texto
-    ts.Close
+    'Abrir el stream y leer el contenido del archivo
+    fsT.Open
+    fsT.LoadFromFile fileName & ".unistore"
+    
+    'Guardar el contenido del stream en una variable
+    txt = fsT.ReadText
+    
+    'Cerrar el stream
+    fsT.Close
     
     'Borrar el último carácter del texto usando la función Left
     txt = Left(txt, Len(txt) - 1)
@@ -362,17 +391,22 @@ Else
     'Agregar la cadena de texto al final del texto usando el operador &
     txt = txt & "]}"
     
-    'Abrir el archivo de texto en modo escritura
-    Set ts = fso.OpenTextFile(fileName & ".unistore", 2)
+    'Abrir el stream en modo de escritura
+    fsT.Open
     
-    'Escribir el nuevo texto en el archivo de texto
-    ts.Write txt
+    'Escribir el nuevo texto en el stream
+    fsT.WriteText txt
     
-    'Cerrar el archivo de texto
-    ts.Close
+    'Guardar el stream en el archivo
+    fsT.SaveToFile fileName & ".unistore", 2
+    
+    'Cerrar el stream
+    fsT.Close
     
     'Mostrar el nuevo texto en un cuadro de mensaje
-    MsgBox "Archivo guardado con exito", vbOKOnly + vbInformation, "Gracias :3"
+    MsgBox "File saved successfully", vbOKOnly + vbInformation, "thanks :3"
+
+
     End
     
 End If
